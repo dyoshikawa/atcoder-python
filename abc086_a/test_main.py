@@ -6,11 +6,9 @@ import main
 
 class FizzBuzzTest(unittest.TestCase):
     def setUp(self):
-        # 初期化処理
         pass
 
     def tearDown(self):
-        # 終了処理
         pass
 
     def test_1(self):

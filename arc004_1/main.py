@@ -27,7 +27,7 @@ def create_graph(strs):
             ] if x in space_list
         ]
     print(graph)
-    return
+    return graph
 
 
 def main(input_list):

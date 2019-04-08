@@ -10,7 +10,7 @@ class MainTest(unittest.TestCase):
         pass
 
     def test_1(self):
-        self.assertEqual(3.605551, main.main(
+        self.assertEqual(11, main.main(
             [
                 [
                     "7 8",

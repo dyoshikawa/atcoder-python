@@ -29,14 +29,14 @@ def create_graph(strs):
     return graph
 
 
-def exists_searched_list(searched_list, space):
+def exists_space_from_searched_list(searched_list, space):
     for item in searched_list:
         if item[0] == space:
             return True
     return False
 
 
-def get_searced_list_by_list(searched_list, space_list):
+def get_space_from_searced_list_by_list(searched_list, space_list):
     for space in space_list:
         for searched in searched_list:
             if searched[0] == space:
@@ -62,9 +62,10 @@ def main(input_list):
     while search_queue:
         space = search_queue.popleft()
 
-        if not exists_searched_list(searched_list, space):
+        if not exists_space_from_searched_list(searched_list, space):
             search_queue += graph[space]
-            space_old = get_searced_list_by_list(searched_list, graph[space])
+            space_old = get_space_from_searced_list_by_list(
+                searched_list, graph[space])
             searched_list.append((space, space_old[1]+1))
 
         if space == goal:

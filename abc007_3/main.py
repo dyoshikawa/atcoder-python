@@ -29,49 +29,45 @@ def create_graph(strs):
     return graph
 
 
-def exists_space_from_searched_list(searched_list, space):
-    for item in searched_list:
-        if item[0] == space:
-            return True
-    return False
-
-
-def get_space_from_searced_list_by_list(searched_list, space_list):
-    for space in space_list:
-        for searched in searched_list:
-            if searched[0] == space:
-                return searched
-    return (None, 0)
+def get_parent(searched, spaces):
+    for space in spaces:
+        if space in searched.keys():
+            return space
+    return None
 
 
 def main(input_list):
-    s_list = list(map(int, input_list[0][1].split()))
-    sy = s_list[0]
-    sx = s_list[1]
+    sy, sx = list(map(int, input_list[0][1].split()))
+    gy, gx = list(map(int, input_list[0][2].split()))
     start = (sy, sx)
-    g_list = list(map(int, input_list[0][2].split()))
-    gy = g_list[0]
-    gx = g_list[1]
     goal = (gy, gx)
+
     graph = create_graph(input_list[1])
 
     search_queue = deque()
     search_queue += graph[start]
-    searched_list = []
+    searched = {}
+    searched[start] = None
 
     while search_queue:
         space = search_queue.popleft()
 
-        if not exists_space_from_searched_list(searched_list, space):
+        if not space in searched.keys():
             search_queue += graph[space]
-            space_old = get_space_from_searced_list_by_list(
-                searched_list, graph[space])
-            searched_list.append((space, space_old[1]+1))
+            space_parent = get_parent(searched, graph[space])
+            searched[space] = space_parent
 
         if space == goal:
             break
 
-    return searched_list[-1][1]
+    some_parent = searched[goal]
+    route_reversed = []
+    route_reversed.append(goal)
+    while not some_parent is None:
+        route_reversed.append(some_parent)
+        some_parent = searched[some_parent]
+
+    return len(route_reversed) - 1
 
 
 if __name__ == "__main__":

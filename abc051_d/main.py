@@ -79,20 +79,23 @@ def main(vertex_count, input_list):
         for route in get_best_routes(graph, start):
             routes.append(route)
 
-    route_strs = []
+    route_sides = []
     for route in routes:
-        route_strs.append(''.join(list(map(str, route))))
+        for i, vertex in enumerate(route):
+            if i == len(route)-1:
+                break
+            route_side = [route[i], route[i+1]]
+            route_sides.append(route_side)
 
-    side_strs = []
+    print(route_sides)
+    sides = []
     for item in input_list:
-        side_strs.append(str(item[0]) + str(item[1]))
-        # side_strs.append(str(item[1]) + str(item[0]))
+        sides.append([item[0], item[1]])
 
     count = 0
-    route_strs_joined = '/'.join(route_strs)
 
-    for side_str in side_strs:
-        if route_strs_joined.find(side_str) == -1:
+    for side in sides:
+        if route_strs_joined.find(side) == -1:
             count += 1
 
     return count

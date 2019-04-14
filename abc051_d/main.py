@@ -85,17 +85,19 @@ def main(vertex_count, input_list):
             if i == len(route)-1:
                 break
             route_side = [route[i], route[i+1]]
-            route_sides.append(route_side)
+            route_side_sorted = sorted(route_side)
+            if not route_side_sorted in route_sides:
+                route_sides.append(route_side_sorted)
 
-    print(route_sides)
     sides = []
     for item in input_list:
-        sides.append([item[0], item[1]])
+        side = [item[0], item[1]]
+        side_sorted = sorted(side)
+        sides.append(side_sorted)
 
     count = 0
-
     for side in sides:
-        if route_strs_joined.find(side) == -1:
+        if not side in route_sides:
             count += 1
 
     return count
